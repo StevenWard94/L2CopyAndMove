@@ -1,2 +1,9 @@
+# ignore the 'build' and 'lib' directories
+build
+lib/*
+
+# ignore executables
+bin/*
+
 # ignore "broken" files
 .broken/
