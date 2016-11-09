@@ -1,24 +1,21 @@
 /***********************************************************************************//**
  * Author:       Steven Ward <stevenward94@gmail.com>
- * File:         /home/steven/lib/cpp.d/L2Copy+Move/include/Node.h
- * Last Change:  2016 Nov 08
+ * File:         L2Copy+Move/include/Node.h
+ * Last Change:  2016 Nov 09
  ***********************************************************************************/
 
 #ifndef LEARN_COPY_MOVE_INCLUDE_SINGLE_LINK_NODE_H_
 #define LEARN_COPY_MOVE_INCLUDE_SINGLE_LINK_NODE_H_
 
-#include <iostream>
-#include <type_traits>
-#include <utility>
-
-#include <stddef.h>
+#include "auxiliary.h"
+#include "node_operators.h"
 
 namespace single_link {
 
 template<class E>
 class Node {
     template<typename T>
-    using remove_reference = typename std::remove_reference<T>::type;
+    using remove_reference = utils::remove_reference<T>;
     using value_t = E;
 
   public:
@@ -38,7 +35,7 @@ class Node {
 
             Node<value_t> tmp(rhs);
             std::swap(this->data_, tmp.data_);
-            std::swap(*(this->next_), (*(tmp.next_));
+            std::swap(*(this->next_), *(tmp.next_));
         }
         return *this;
     }
@@ -78,8 +75,9 @@ class Node {
       swap(lhs.data_, rhs.data_);
       swap(*(lhs.next_), *(lhs.next_));
   }
+
 };
 
-}  // single_link
+} // namespace single_link
 
-#endif  // (LEARN_COPY_MOVE_INCLUDE_SINGLE_LINK_NODE_H_)
+#endif  // LEARN_COPY_MOVE_INCLUDE_SINGLE_LINK_NODE_H_
