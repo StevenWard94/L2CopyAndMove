@@ -1,7 +1,7 @@
 /***********************************************************************************//**
  * Author:       Steven Ward <stevenward94@gmail.com>
  * File:         L2Copy+Move/include/Node.h
- * Last Change:  2016 Nov 09
+ * Last Change:  2016 Nov 10
  ***********************************************************************************/
 
 #ifndef LEARN_COPY_MOVE_INCLUDE_SINGLE_LINK_NODE_H_
@@ -19,14 +19,14 @@ class Node {
     using value_t = E;
 
   public:
-    inline remove_reference<value_t> data( ) const { return std::forward<value_t>(data_); }
+    inline remove_reference<value_t> data( ) const { return data_; }
 
     // assumes that a copy-assignment operator is defined for the type 'value_t'
     inline void setData(value_t const& val) { this->data_ = val; }
-    inline remove_reference<value_t> data(value_t&& val) { this->data_(std::forward<value_t>(val)); }
+    inline void setData(value_t&& val) { this->data_ = val; }
 
-    inline Node<value_t> const* const next( ) const { return const_cast<Node<value_t> const*>(next_); }
-    inline Node<value_t>* setNext(Node<value_t> const* node) { this->next_ = new Node<value_t>(node); }
+    inline Node<value_t> const* const next( ) const { return next_; }
+    inline void setNext(Node<value_t>* node) { this->next_ = node; }
 
     inline Node<value_t>& operator= (Node<value_t> const& rhs) {
         if (this != &rhs) {
@@ -49,15 +49,15 @@ class Node {
 
 
     inline Node( ) = default;
-    inline Node(value_t const& data) : data_(new value_t(data)) { }
+    inline Node(value_t const& data) : data_(data) { }
     inline Node(value_t&& data) : data_(std::move(data)) { }
     inline Node(value_t const& data, Node<value_t> const* node)
-            : data_(new value_t(data)), next_(new Node<value_t>(node)) { }
+            : data_(data), next_(new Node<value_t>(node)) { }
     inline Node(value_t&& data, Node<value_t> const* node)
             : data_(std::move(data)), next_(new Node<value_t>(node)) { }
 
     inline Node(Node<value_t> const& other)
-            : data_(new value_t(other.data_)), next_(new Node(other.next_)) { }
+            : data_(other.data_), next_(other.next_) { }
 
     virtual ~Node( ) = default;
 

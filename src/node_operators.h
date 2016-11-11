@@ -14,6 +14,8 @@
 
 namespace single_link {
 
+template<class E> class Node;
+
 template<class E>
 using is_Eq_instance = typename utils::typeclass::Eq<E>::value;
 
