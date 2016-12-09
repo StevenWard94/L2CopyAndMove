@@ -2,8 +2,4 @@
 build
 lib/*
 
-# ignore executables
-bin/*
 
-# ignore "broken" files
-.broken/
